@@ -1,0 +1,60 @@
+Steven Houser
+Adventure Game Lab Documentation
+09/26/25
+
+Goal: Create a "choose your own adventure" game using dictionaries. The game presents a series of decisions with exactly two choices each, leading through interconnected nodes until reaching an ending.
+
+Variables needed:
+- game (dictionary containing all game nodes and their information)
+- keepGoing (boolean for main game loop control)
+- nextNode (string representing the current/next node name)
+- currentNode (string parameter for playNode function)
+- desc (string describing current situation)
+- menuA (string for first choice option)
+- nodeA (string for destination if choice A selected)
+- menuB (string for second choice option) 
+- nodeB (string for destination if choice B selected)
+- userChoice (string for user's input)
+
+Algorithm for main():
+1. Get the complete game data (call getGame())
+2. Set keepGoing = True
+3. Set nextNode = "start"
+4. While keepGoing is True:
+   - Call playNode(game, nextNode) and store result in nextNode
+   - If nextNode equals "quit":
+     - Set keepGoing = False
+5. Game ends when loop exits 
+
+Algorithm for getGame():
+1. Create empty dictionary to hold game data
+2. Add all game nodes to the dictionary using the 5-element list structure
+3. Return the completed dictionary
+
+Algorithm for playNode(game, currentNode):
+1. Use tuple unpacking to extract the 5 pieces of information
+2. Display the formatted output with description and menu choices
+3. Get user input
+4. Check userChoice and set nextNode appropriately
+5. Return nextNode
+
+Blackbelt Extension: Random Unstable Portal
+
+Goal: Add an element of randomness and replayability to the adventure game through an unstable magical portal that transports players to random locations.
+
+Additional Variables Needed:
+- portal_destinations (list of possible random destination nodes)
+- random (special node identifier for triggering random selection)
+
+New Node Added:
+- unstable_portal
+
+Modified Algorithm for playNode():
+1. Execute normal playNode logic
+2. Add special handling after determining nextNode:
+   - If nextNode == "random":
+     - Create list of possible portal destinations
+     - Use random.choice() to select one destination from the list
+     - Display text about portal activation
+     - Pause for user input before continuing
+3. Return the final nextNode
