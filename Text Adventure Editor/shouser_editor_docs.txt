@@ -1,0 +1,143 @@
+Steven Houser
+Text Adventure Editor Lab Documentation
+10/03/25
+
+Goal: Create a text adventure engine that allows users to play, create, edit, save, and load "choose your own adventure" games using a menu system with JSON file storage.
+
+Variables needed:
+- game (dictionary containing game nodes)
+- keepGoing (boolean for loop control)
+- menuChoice (string for user's menu selection)
+- nextNode (string for next node name)
+- currentNode (string for current node name)
+- nodeNames (keys from game dictionary)
+- desc (string for node description)
+- menuA (string for first choice)
+- nodeA (string for first destination)
+- menuB (string for second choice)
+- nodeB (string for second destination)
+- userChoice (string for user input)
+- newNodeName (string for node being edited)
+- newNode (tuple with five node elements)
+- fieldName (string for field name)
+- currentVal (string for current field value)
+- field (string for field value)
+- fileName (string for file name)
+- outFile (file object for writing)
+- inFile (file object for reading)
+
+Algorithm for main():
+1. Get the default game (call getDefaultGame())
+2. Set keepGoing = True
+3. While keepGoing is True:
+   - Get menu choice (call getMenuChoice())
+   - If choice is "0", Exit the program
+   - If choice is "1", Load default game
+   - If choice is "2", Load game from file
+   - If choice is "3", Save the current game
+   - If choice is "4", Edit or add a node
+   - If choice is "5", Play the game
+4. Program ends when loop exits
+
+Algorithm for getMenuChoice():
+1. Set keepGoing = True
+2. While keepGoing is True:
+   - Print the menu
+   - Get user input
+   - If input is valid (0-5), stop looping
+   - Otherwise print error message
+3. Return the menu choice
+
+Algorithm for playGame(game):
+1. Set keepGoing = True
+2. Set nextNode = "start"
+3. While keepGoing is True:
+   - Call playNode and store result in nextNode
+   - If nextNode equals "quit", stop looping
+4. Return to main menu
+
+Algorithm for playNode(game, currentNode):
+1. Extract node data using tuple unpacking
+2. Display description and menu choices
+3. Get user input
+4. If user choice is "1", set nextNode to nodeA
+5. If user choice is "2", set nextNode to nodeB
+6. If user input is invalid, display error and stay on current node
+7. Return nextNode
+
+Algorithm for getDefaultGame():
+1. Create a dictionary with a single "start" node
+2. Set node values (description, menus, and destinations)
+3. Return the game dictionary
+
+Algorithm for editNode(game):
+1. Print current game (use json.dumps for formatting)
+2. Print list of current node names
+3. Get user input for which node to edit
+4. If node exists, copy its data
+5. If node doesn't exist, create empty node data
+6. Use tuple unpacking to extract current values
+7. Call getField for each of the five fields
+8. Create new tuple with updated values
+9. Save the node back to the game dictionary
+
+Algorithm for getField(fieldName, currentVal):
+1. Print field name with current value in parentheses
+2. Get user input
+3. If input is empty, keep current value
+4. If input has text, use new value
+5. Return the field value
+
+Algorithm for saveGame(game):
+1. Set file name to "game.json"
+2. Open the file for writing
+3. Save game to file using json.dump()
+4. Close the file
+5. Print confirmation message
+6. Display the saved game data
+
+Algorithm for loadGame():
+1. Set file name to "game.json"
+2. Open the file for reading
+3. Load game from file using json.load()
+4. Close the file
+5. Return the game dictionary
+
+Blackbelt Extensions:
+
+1. Error Handling in playNode():
+The playNode() function includes error handling to prevent the program from crashing when an invalid node is encountered.
+
+Modified Algorithm for playNode(game, currentNode):
+1. Get node names from game dictionary
+2. Check if currentNode is in the list of valid nodes
+3. If currentNode is valid:
+   - Extract node data using tuple unpacking
+   - Display description and menu choices
+   - Get user input
+   - Set nextNode based on user choice
+   - If user input is invalid, display error and stay on current node
+4. If currentNode is not valid:
+   - Print error message stating the node is invalid
+   - Set nextNode to "quit" to exit gracefully
+5. Return nextNode
+
+2. User-Selected File Names:
+The saveGame() and loadGame() functions allow the user to choose custom file names instead of using a hardcoded "game.json".
+
+Modified Algorithm for saveGame(game):
+1. Prompt user to enter a filename
+2. If user presses enter with no input, default to "game.json"
+3. Open the file for writing
+4. Save game to file using json.dump()
+5. Close the file
+6. Print confirmation message
+7. Display the saved game data
+
+Modified Algorithm for loadGame():
+1. Prompt user to enter a filename
+2. If user presses enter with no input, default to "game.json"
+3. Open the file for reading
+4. Load game from file using json.load()
+5. Close the file
+6. Return the game dictionary
