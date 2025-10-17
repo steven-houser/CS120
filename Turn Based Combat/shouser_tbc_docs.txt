@@ -1,0 +1,125 @@
+Steven Houser
+Turn Based Combat Lab Documentation
+10/17/25
+
+Goal: Create a turn-based combat game using a Character class and fight function to simulate battles between heroes and monsters.
+
+Variables needed (Character class):
+- __name (string for character name)
+- __hitPoints (integer for health)
+- __hitChance (integer for hit percentage 0-100)
+- __maxDamage (integer for maximum damage)
+- __armor (integer for damage reduction)
+
+Variables needed (combat.py):
+- hero (Character object)
+- monster (Character object)
+
+Variables needed (fight function):
+- keepGoing (boolean for loop control)
+
+Variables needed (hit method):
+- hitRoll (random integer 1-100)
+- damageRoll (random integer 1-maxDamage)
+- actualDamage (integer for damage after armor)
+
+Property Limitations:
+- name: String, no limits
+- hitPoints: Integer, can be negative or zero, defaults to 0
+- hitChance: Integer between 0-100, defaults to 0
+- maxDamage: Integer, minimum 0, defaults to 0
+- armor: Integer, minimum 0, defaults to 0
+
+Algorithm for Character class __init__:
+1. Set up parameters: name="", hitPoints=0, hitChance=0, maxDamage=0, armor=0
+2. Set name property
+3. Set hitPoints property
+4. Set hitChance property
+5. Set maxDamage property
+6. Set armor property
+
+Algorithm for testInt(value, min, max, default):
+1. Set out = default
+2. Check if type(value) == int
+3. If value is an integer:
+   - Check if value >= min
+   - If yes, check if value <= max
+   - If yes, set out = value
+   - If value > max, print "Too large"
+   - If value < min, print "Too small"
+4. If value is not an integer:
+   - Print "Must be an integer"
+5. Return out
+
+Algorithm for name property:
+1. Getter returns __name
+2. Setter stores value in __name
+
+Algorithm for hitPoints property:
+1. Getter returns __hitPoints
+2. Setter uses testInt to validate, then stores in __hitPoints
+
+Algorithm for hitChance property:
+1. Getter returns __hitChance
+2. Setter uses testInt (0-100), then stores in __hitChance
+
+Algorithm for maxDamage property:
+1. Getter returns __maxDamage
+2. Setter uses testInt (minimum 0), then stores in __maxDamage
+
+Algorithm for armor property:
+1. Getter returns __armor
+2. Setter uses testInt (minimum 0), then stores in __armor
+
+Algorithm for printStats():
+1. Print character name
+2. Print "Hit Points: " followed by hitPoints value
+3. Print "Hit Chance: " followed by hitChance value with "%"
+4. Print "Max Damage: " followed by maxDamage value
+5. Print "Armor: " followed by armor value
+6. Print blank line for spacing
+
+Algorithm for hit(opponent):
+1. Print attack message with attacker's name
+2. Generate random hitRoll between 1 and 100
+3. If hitRoll <= self's hitChance:
+   - Generate random damageRoll between 1 and self's maxDamage
+   - Calculate actualDamage = damageRoll - opponent's armor
+   - If actualDamage < 0, set actualDamage = 0
+   - Subtract actualDamage from opponent's hitPoints
+   - Print hit message with damage amount
+   - If opponent's hitPoints <= 0:
+     - Print defeat message with opponent's name
+4. Else (missed):
+   - Print miss message
+
+Algorithm for fight(char1, char2):
+1. Set keepGoing = True
+2. While keepGoing is True:
+   - Call char1.hit(char2)
+   - If char2's hitPoints <= 0:
+     - Print victory message for char1
+     - Set keepGoing = False
+   - If keepGoing is still True:
+     - Call char2.hit(char1)
+     - If char1's hitPoints <= 0:
+       - Print victory message for char2
+       - Set keepGoing = False
+3. Print "Combat ended"
+
+Algorithm for main() in tbc.py:
+1. Create test Character with default values
+2. Set character attributes
+3. Create second Character with parameters
+4. Print stats for both characters
+5. Call fight with both characters
+
+Algorithm for main() in combat.py:
+1. Import tbc module
+2. Create hero Character
+3. Set hero attributes (name, hitPoints, hitChance, maxDamage, armor)
+4. Create monster Character
+5. Set monster attributes
+6. Print hero stats
+7. Print monster stats
+8. Call tbc.fight(hero, monster)
