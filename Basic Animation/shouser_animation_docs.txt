@@ -1,0 +1,106 @@
+Steven Houser
+Basic Animation Lab Documentation
+10/24/25
+
+Goal: Build a basic animation in Python and Pygame using the IDEA/ALTER framework to display and move an image around the screen in interesting ways.
+
+Variables needed (main program):
+- screen (pygame Surface object for display window)
+- background (pygame Surface object for background)
+- clock (pygame Clock object for frame rate control)
+- keepGoing (boolean for loop control)
+- image (pygame Surface object for sprite/character image)
+- image_x (integer for x coordinate)
+- image_y (integer for y coordinate)
+- dx (integer for horizontal movement speed)
+- dy (integer for vertical movement speed)
+
+Algorithm for main() - Basic Version:
+1. Import and Initialize (I):
+   - Import pygame module
+   - Call pygame.init()
+
+2. Display Configuration (D):
+   - Create screen using pygame.display.set_mode() with 640x480 dimensions
+   - Set window caption using pygame.display.set_caption()
+
+3. Entities (E):
+   - Create background surface matching screen size
+   - Convert background surface for better performance
+   - Fill background with chosen color using RGB values (black: 0,0,0)
+   - Load image file using pygame.image.load() with try/except error handling
+   - If error occurs, print error message and exit with pygame.quit() and return
+   - Convert image using convert_alpha() for transparency
+   - Scale image to appropriate size using pygame.transform.scale()
+   - Initialize position variables (image_x = 0, image_y = 0)
+   - Initialize movement variables (dx = 5, dy = 3)
+
+4. Action - Assign (A):
+   - Create clock object using pygame.time.Clock()
+   - Set keepGoing = True
+
+5. Action - Loop (L):
+   - Start while loop (while keepGoing:)
+
+6. Action - Timer (T):
+   - Set frame rate using clock.tick(30) for 30 FPS
+
+7. Action - Event Handling (E):
+   - Loop through all events using pygame.event.get()
+   - Check for pygame.QUIT event
+   - If QUIT event occurs, set keepGoing = False
+
+8. Update position:
+   - Add dx to image_x
+   - Add dy to image_y
+
+9. Check boundaries (wrapping):
+   - If image_x > screen width, set image_x = 0
+   - If image_x < 0, set image_x = screen width
+   - If image_y > screen height, set image_y = 0
+   - If image_y < 0, set image_y = screen height
+
+10. Action - Refresh Display (R):
+    - Blit background to screen at (0, 0) to erase previous frame
+    - Blit image to screen at current position (image_x, image_y)
+    - Call pygame.display.flip() to update entire screen
+
+11. Quit pygame:
+    - After loop ends, call pygame.quit()
+
+Blackbelt Extensions:
+
+Variables needed (blackbelt program):
+- image_rect (pygame Rect object for collision detection)
+- image_width (integer for image width)
+- image_height (integer for image height)
+
+1. Background Image:
+
+Modified Algorithm for Entities (E):
+1. Load background image using pygame.image.load() with try/except error handling
+   - If error occurs, print error message and exit with pygame.quit() and return
+2. Convert background image using convert() 
+3. Scale background image to match screen size using pygame.transform.scale()
+4. Load main image file using pygame.image.load() with try/except error handling
+   - If error occurs, print error message and exit with pygame.quit() and return
+5. Convert image using convert_alpha() for transparency
+6. Scale image to appropriate size using pygame.transform.scale()
+7. Get image dimensions using pygame.Surface.get_rect()
+8. Initialize position variables 
+9. Initialize movement variables 
+
+2. Bouncing Physics:
+
+Modified Algorithm for Check boundaries (bouncing):
+1. After updating image_x:
+   - If image_x <= 0, set image_x = 0 and reverse dx direction
+   - If image_x + image_width >= screen width, set image_x = screen width - image_width and reverse dx direction
+2. After updating image_y:
+   - If image_y <= 0, set image_y = 0 and reverse dy direction
+   - If image_y + image_height >= screen height, set image_y = screen height - image_height and reverse dy direction
+
+Sources for image and background:
+Image: https://opengameart.org/content/halloween-animation-pumpkin
+Background: https://opengameart.org/content/tilling-cat-eyes
+
